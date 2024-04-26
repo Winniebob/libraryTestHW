@@ -11,15 +11,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
 import java.util.List;
 import java.util.NoSuchElementException;
+
 
 @Slf4j
 @RestController
 @RequestMapping("/issue")
 @Tag(name = "Issuance")
+
 public class IssueController {
+
 
     @Autowired
     private IssueService service;
@@ -33,7 +35,10 @@ public class IssueController {
         final Issue issue;
         try {
             issue = service.issue(request);
+
+
         } catch (NoSuchElementException e) {
+
             return ResponseEntity.notFound().build();
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
@@ -81,4 +86,5 @@ public class IssueController {
         }
         return ResponseEntity.status(HttpStatus.OK).body(issue);
     }
+
 }
